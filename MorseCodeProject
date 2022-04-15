@@ -1,0 +1,124 @@
+/**
+* @author Diorena Bega & Herta Fida & Joana Sadiku
+* Application reads sentences in the English Language and turns them into Morse Code
+* & vice versa
+* Program can print a random charachter if asked
+* The loop repeats itself until terminated and program is finished
+*/
+import java.util.Scanner;
+import java.io.BufferedReader; // Class which simplifies text from user/reads text
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Random;
+ 
+public class MorseCodeProject {
+   public static void main(String args[]) throws IOException 
+   {
+       Random random = new Random();
+       int choice = 0;    //inizialize variable for user input menu
+    
+ 
+       //array  containing alphabet in morse & alphabet in english
+       //alphabet, then letters
+ 
+        String[] morse = { ".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..",
+                   ".---", "-.-", ".-..", "--", "-.", "---", ".---.", "--.-", ".-.",
+                   "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..", ".----",
+                   "..---", "...--", "....-", ".....", "-....", "--...", "---..", "----.",
+                   "-----"};
+ 
+       char[] english = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
+                   'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+                   'y', 'z','1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+      
+      
+     
+        char randomizedCharacter = (char) (random.nextInt(26) + 'a'); //generates random charachter from alphabet
+ 
+        String s = "",input = "",second_input = ""; // input case 1 , second_input  case 2
+ 
+        Scanner sc = new Scanner(System.in); //declare scanner
+ 
+       BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+ 
+       System.out.println("");
+       do // prints even if while not true
+       {
+       System.out.println("\n1.From English to Morse\n2.From Morse to English\n3.Print Random letter\n4.EXIT\n");
+      
+       while(!sc.hasNextInt())  //hasNextInt() method returns true/in this case repets itself until we have true int value, reverse result operator
+       {
+         
+           System.err.println("PLEASE TRY AGAIN\n"); // if input is incorret, user tries ahin
+           sc.next();  
+       }
+ 
+ 
+   
+       choice = sc.nextInt(); // gets input from user, between 1 and 4
+ 
+       switch(choice) //value of user
+       {
+       case 1:
+       {
+      
+           System.out.println("ENTER ENGLISH PHRASE\n");
+           s = in.readLine();  // from buffered user class, both inputsteamreader and buffer class use read method
+           s = s.toLowerCase();
+           char[] morseCode = s.toCharArray();
+           for(int i = 0; i < morseCode.length;i++)  
+           {//For Every Letter in the User Input s
+               for(int j = 0;j<english.length;j++)  
+               {
+                   if(english[j] == morseCode[i]) 
+                   {
+                       input = input + morse[j] + " ";  // generation of letters plus space, from user input
+                   } 
+               }
+           }
+           System.out.println("TRANSLATION:");
+           System.out.println(input);
+           break;
+       }
+ 
+       case 2:
+       {
+           System.out.println("ENTER MORSE CODE\n");
+           s = in.readLine();   //s is for sting input
+           String[] morseCode = s.split(" ");  
+           for(int i = 0;i < morseCode.length;i++)
+           {
+               for(int j = 0;j < morse.length;j++)
+               {
+                   if(morse[j].equals(morseCode[i]))    //string comparison .equals
+                   {
+                       second_input = second_input + english[j];
+                   }
+               }
+           }
+           System.out.println("TRANSLATION: ");
+           System.out.println(second_input); // is what gets printed
+           break;
+       }
+       case 3:{
+           System.out.println("RANDOM CHARACHTER:\n" + randomizedCharacter);
+           break;
+ 
+       }
+       case 4:
+       {
+           System.out.println("PROGRAM IS TERMINATED:\n");
+           break;
+       }
+       default:
+       {
+           System.err.println("ERROR:\n");
+           break;
+       }
+       }
+       }
+       while(choice!=4); //until program is terminated we loop
+       }
+ 
+}
+
